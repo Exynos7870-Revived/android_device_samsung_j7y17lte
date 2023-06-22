@@ -115,9 +115,8 @@ void vendor_load_properties()
     }
 
     /* Common properties*/
-    property_override_dual("ro.build.fingerprint", "ro.vendor.build.fingerprint", "google/redfin/redfin:11/RQ3A.210705.001/7380771:user/release-keys");
-    property_override("ro.build.description", "samsung/j7y17lteexc/j7y17ltee:8.0.0/R16NW/A320FLXXS5CSL5:user/release-keys");
-    property_override_quad("ro.product.device", "ro.product.odm.device", "ro.product.system.device", "ro.product.vendor.device", "j7y17ltee");
+    property_override("ro.build.description", "samsung/j7y17ltexc/j7y17lte:8.0.0/R16NW/A320FLXXS5CSL5:user/release-keys");
+    property_override_quad("ro.product.device", "ro.product.odm.device", "ro.product.system.device", "ro.product.vendor.device", "j7y17lte");
 
     std::string device = GetProperty("ro.product.device", "");
     LOG(ERROR) << "Found bootloader id %s setting build properties for %s device\n" << bootloader.c_str() << device.c_str();

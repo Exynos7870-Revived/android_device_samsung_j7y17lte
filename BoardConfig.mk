@@ -45,6 +45,8 @@ TARGET_RELEASETOOLS_EXTENSIONS := $(DEVICE_PATH)/releasetools
 TARGET_LD_SHIM_LIBS += \
     /vendor/lib/libbauthserver.so|/vendor/lib/libbauthtzcommon_shim.so
 
+BOARD_SEPOLICY_DIRS := $(LOCAL_PATH)/sepolicy
+
 # Wifi
 BOARD_WLAN_DEVICE                := bcmdhd
 WPA_SUPPLICANT_VERSION           := VER_0_8_X
