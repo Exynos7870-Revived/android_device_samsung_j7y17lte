@@ -16,7 +16,14 @@
 DEVICE_PATH := device/samsung/j7y17lte
 
 # Audio
-BOARD_USE_TFA_AMP := true
+
+# audio type guard
+TARGET_BOARD_HAS_M10LTE_AUDIO_HAL := true
+TARGET_BOARD_HAS_A6LTE_AUDIO_HAL := false
+
+ifeq ($(TARGET_BOARD_HAS_M10LTE_AUDIO_HAL),true)
+TARGET_BOARD_HAS_TFA_AMP := true
+endif
 
 # Assert
 TARGET_OTA_ASSERT_DEVICE := j7y17lte,j7y17ltexx,j7y17ltextc
@@ -40,12 +47,6 @@ TARGET_RECOVERY_DEVICE_MODULES := libinit_j7y17lte
 
 # Releasetools
 TARGET_RELEASETOOLS_EXTENSIONS := $(DEVICE_PATH)/releasetools
-
-# Shims
-TARGET_LD_SHIM_LIBS += \
-    /vendor/lib/libbauthserver.so|/vendor/lib/libbauthtzcommon_shim.so
-
-BOARD_SEPOLICY_DIRS := $(LOCAL_PATH)/sepolicy
 
 # Wifi
 BOARD_WLAN_DEVICE                := bcmdhd

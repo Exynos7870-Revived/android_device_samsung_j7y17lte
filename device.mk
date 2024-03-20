@@ -16,6 +16,15 @@
 
 DEVICE_PATH := device/samsung/j7y17lte
 
+# audio type guard
+TARGET_DEVICE_HAS_M10LTE_AUDIO_HAL := true
+TARGET_DEVICE_HAS_A6LTE_AUDIO_HAL := false
+
+ifeq ($(TARGET_DEVICE_HAS_M10LTE_AUDIO_HAL),true)
+TARGET_DEVICE_HAS_TFA_AMP := true
+TARGET_DEVICE_HAS_PREBUILT_AUDIO_HAL := true
+endif
+
 # Permissions
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.fingerprint.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.fingerprint.xml \
@@ -40,13 +49,19 @@ PRODUCT_AAPT_PREBUILT_DPI := xxhdpi xhdpi hdpi
 
 # Bluetooth
 PRODUCT_PACKAGES += \
-    android.hardware.bluetooth@1.0-service-qti \
+    android.hardware.bluetooth@1.0.vendor \
     android.hardware.bluetooth.audio@2.0-impl \
     audio.bluetooth.default \
 
 # Fingerprint
 PRODUCT_PACKAGES += \
-    android.hardware.biometrics.fingerprint@2.1-service.samsung-a3y17lte
+    android.hardware.biometrics.fingerprint@2.1-service.samsung
+
+# NFC
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/nfc/libnfc-sec-vendor.conf:$(TARGET_COPY_OUT_VENDOR)/etc/libnfc-sec-vendor.conf \
+    $(LOCAL_PATH)/configs/nfc/libnfc-nci.conf:$(TARGET_COPY_OUT_VENDOR)/etc/libnfc-nci.conf \
+    $(LOCAL_PATH)/configs/nfc/nfcee_access.xml:$(TARGET_COPY_OUT_VENDOR)/etc/nfcee_access.xml
 
 # NFC
 PRODUCT_PACKAGES += \
@@ -54,7 +69,8 @@ PRODUCT_PACKAGES += \
     libnfc_nci_jni \
     NfcNci \
     Tag \
-    com.android.nfc_extras
+    com.android.nfc_extras \
+    android.hardware.nfc@1.2-service.samsung
 
 # Overlays
 DEVICE_PACKAGE_OVERLAYS += \
@@ -80,7 +96,8 @@ PRODUCT_PACKAGES += \
     wifilogd \
     wlutil \
     wpa_supplicant \
-    wpa_supplicant.conf
+    wpa_supplicant.conf \
+    wcnss_filter
 
 PRODUCT_COPY_FILES += \
     $(DEVICE_PATH)/configs/wifi/p2p_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/p2p_supplicant_overlay.conf \
